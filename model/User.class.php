@@ -137,6 +137,7 @@ class User implements Entity{
      * @return Bool
      */
     public function isValid(string $password):Bool{
+        //TODO check if mail is already taken
         if(!isset($_SESSION['toastError'])) $_SESSION['toastError']=[];
         if(!preg_match("/\w[\w]{2,}/",$this->nick)){
             $_SESSION['toastError'][]="nick must be at least 3 characters long.";
@@ -170,14 +171,5 @@ class User implements Entity{
      */
     public function sendSignUpMail():void{
         //TODO send mail with validation token
-    }
-
-    public function hasAuth($action):Bool{
-        forEach($this->roles as $role){
-            if ($role->hasAuth($action)){
-                return true;
-            }
-        }
-        return false;
     }
 }
