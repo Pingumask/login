@@ -1,0 +1,11 @@
+RewriteEngine on
+
+## Redirection https ##
+RewriteCond %{HTTP_HOST} !local
+RewriteCond %{HTTPS} !=on
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+## Point d'entrée unique ##
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+RewriteRule ^(.*)$ /public/index.php?$1 [L,QSA]
